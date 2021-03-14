@@ -14,7 +14,7 @@ const Calendar = () => {
 
     const [value, setValue] = useState(moment());
     const [calendar, setCalendar] = useState([]);
-   const [selectedDay, selectDay] = useState(scheduledDates[0]);
+    const [selectedDay, selectDay] = useState(scheduledDates[0]);
 
     const firstDay = value.clone().startOf("month").startOf("week");
     const lastDay = value.clone().endOf("month").endOf("week");
@@ -73,11 +73,11 @@ const Calendar = () => {
     const handleShow = (day) => setShow(true);
 
     function onSelect(day) {
-        if(isPending(day)) {
-        selectDay(day);
-        console.log(selectedDay);
-        handleShow();
-    }
+        if (isPending(day)) {
+            selectDay(day);
+            console.log(selectedDay);
+            handleShow();
+        }
     }
 
     return (
@@ -105,7 +105,7 @@ const Calendar = () => {
                 <Modal.Body>
                     <h1>Fecha: </h1><p>{selectedDay.format('MMMM Do YYYY, h:mm:ss a')}</p>
                     <p> Su cita es {selectedDay.startOf('day').fromNow()}</p>
-                    </Modal.Body>
+                </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Close

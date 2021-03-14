@@ -11,8 +11,8 @@ const Navb = () => {
           <Navbar.Brand href="#home">BuscoPaciente</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
           <Navbar.Collapse className="justify-content-end" id="responsive-navbar-nav">
-            <Nav.Link href="#pricing">Regresar</Nav.Link>
-            <Nav.Link href="#pricing">Cerrar Sesión</Nav.Link>
+            <Nav.Link href="#regresar">Regresar</Nav.Link>
+            <Nav.Link href="#logout">Cerrar Sesión</Nav.Link>
           </Navbar.Collapse>
     </Navbar>
   )
