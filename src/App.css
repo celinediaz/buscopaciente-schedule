@@ -2,11 +2,9 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h1 {
+  color: #007bff;
 }
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -17,18 +15,22 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
-.container{
-  display:flex;
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
 }
-.calendar{
+.calendar {
   width: 40vw;
 }
-.week{
+.week {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
 }
-.day-container, .weekDay{
+.day-container,
+.weekDay {
+  justify-self: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -37,17 +39,44 @@
   height: 30px;
   width: 30px;
 }
-
-.pending{
-  background-color: #4576fc;
-  color: white;
+.day {
+  text-align: center;
 }
-.passed{
+.pending {
+  background-color: #0098e9;
+  color: white;
+  cursor: pointer;
+}
+.passed {
   background-color: rgb(196, 196, 196);
   color: rgb(48, 48, 48);
 }
-.month{
+.month {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+}
+.schedule-info {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(2, 1fr);
+  width: 40vw;
+  justify-content: center;
+}
+.day-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 10vh;
+  background-image: linear-gradient(180deg, #48bcf6, #458dfc);
+  color: white;
+  text-align: center;
+  padding-top: 1vh;
 }

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
-import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
 
 const Calendar = () => {
     //example dates
@@ -13,6 +14,7 @@ const Calendar = () => {
 
     const [value, setValue] = useState(moment());
     const [calendar, setCalendar] = useState([]);
+   const [selectedDay, selectDay] = useState(scheduledDates[0]);
 
     const firstDay = value.clone().startOf("month").startOf("week");
     const lastDay = value.clone().endOf("month").endOf("week");
@@ -26,15 +28,18 @@ const Calendar = () => {
         setCalendar(temp)
     }, [value])
 
-    function isPending(day){
-        for(let i = 0; i < scheduledDates.length ; i++){
-            if(scheduledDates[i].isSame(day, "day")) return true; 
-         }
-         return false;
+    function isPending(day) {
+        for (let i = 0; i < scheduledDates.length; i++) {
+            if (scheduledDates[i].isSame(day, "day")) {
+
+                return true;
+            }
+        }
+        return false;
     }
-    function hasPassed(day){
-        for(let i = 0; i < passedDates.length ; i++){
-           if(passedDates[i].isSame(day, "day")) return true; 
+    function hasPassed(day) {
+        for (let i = 0; i < passedDates.length; i++) {
+            if (passedDates[i].isSame(day, "day")) return true;
         }
         return false;
     }
@@ -48,40 +53,67 @@ const Calendar = () => {
         return value.isSame(day, "day");
     }
     */
-    function dayStyle(day){
-        if(isPending(day)) return "pending day-container";
-        if(hasPassed(day)) return "passed day-container";
+    function dayStyle(day) {
+        if (isPending(day)) return "pending day-container";
+        if (hasPassed(day)) return "passed day-container";
         return "day-container"
     }
-    const weekDays = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+    const weekDays = ["DOM", "LUN", "MAR", "MIE", "JUE", "VIE", "SAB"];
 
-    function pastMonth(){
+    function pastMonth() {
         return value.clone().subtract(1, "month")
     }
-    function nextMonth(){
+    function nextMonth() {
         return value.clone().add(1, "month")
+    }
+
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = (day) => setShow(true);
+
+    function onSelect(day) {
+        if(isPending(day)) {
+        selectDay(day);
+        console.log(selectedDay);
+        handleShow();
+    }
     }
 
     return (
         <div className="calendar">
             <div className="month">
-            <FontAwesomeIcon icon={faArrowLeft} color="blue" onClick = {() => setValue(pastMonth())}/>
-            <h1>{value.format('MMMM')}</h1>
-            <FontAwesomeIcon icon={faArrowRight} color="blue" onClick = {() => setValue(nextMonth())} />
+                <FontAwesomeIcon icon={faArrowLeft} color="#007bff" onClick={() => setValue(pastMonth())} />
+                <h3>{value.format('MMMM')}</h3>
+                <FontAwesomeIcon icon={faArrowRight} color="#007bff" onClick={() => setValue(nextMonth())} />
             </div>
             <div className="week">
-                {weekDays.map(day => <div className ="weekDay"> {day} </div>)}
+                {weekDays.map(day => <div className="weekDay"> {day} </div>)}
             </div>
             {calendar.map(week =>
                 <div className="week">{
-                    week.map(day => <div className={dayStyle(day, value)} onClick={() => setValue(day)}>
-                        <div className = {"day"}>
-                        {day.format("D")} </div>
-                        </div>
+                    week.map(day => <div className={dayStyle(day, value)}>
+                        <div className={"day"} onClick={() => onSelect(day)}>
+                            {day.format("D")} </div>
+                    </div>
                     )}
                 </div>)}
-                </div>
-            )
-            }
+            <Modal show={show} onHide={handleClose} size="sm">
+                <Modal.Header closeButton>
+                    <Modal.Title>Horario</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <h1>Fecha: </h1><p>{selectedDay.format('MMMM Do YYYY, h:mm:ss a')}</p>
+                    <p> Su cita es {selectedDay.startOf('day').fromNow()}</p>
+                    </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+        </div>
+    )
+}
 
 export default Calendar
