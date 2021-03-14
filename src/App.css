@@ -7,12 +7,6 @@
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -23,16 +17,37 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
-
-.App-link {
-  color: #61dafb;
+.container{
+  display:flex;
+  justify-content: center;
+}
+.calendar{
+  width: 40vw;
+}
+.week{
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+.day-container, .weekDay{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.pending{
+  background-color: #4576fc;
+  color: white;
+}
+.passed{
+  background-color: rgb(196, 196, 196);
+  color: rgb(48, 48, 48);
+}
+.month{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 }
